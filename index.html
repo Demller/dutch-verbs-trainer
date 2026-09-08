@@ -295,6 +295,16 @@ function setActiveTab(tabId){
    const el=document.getElementById(id);
    if(el) el.classList.toggle('active', id===tabId);
  });
+ const mobileMap={
+   tabPractice:'mPractice',
+   tabLearn:'mLearn',
+   tabWeak:'mWeak',
+   tabExam:'mExam'
+ };
+ ['mPractice','mLearn','mWeak','mExam'].forEach(id=>{
+   const el=document.getElementById(id);
+   if(el) el.classList.toggle('active', mobileMap[tabId]===id);
+ });
 }
 function showPractice(label='Смешанная тренировка'){
  $('#practiceView').classList.remove('hidden');$('#learnView').classList.add('hidden');$('#modeLabel').textContent=label; newQuestion();
@@ -310,10 +320,19 @@ $('#search').oninput=renderLearn;
 $('#groupFamily').onclick=()=>{$('#groupFamily').classList.add('active');$('#groupAlpha').classList.remove('active');renderLearn()};
 $('#groupAlpha').onclick=()=>{$('#groupAlpha').classList.add('active');$('#groupFamily').classList.remove('active');renderLearn()};
 $('#resetBtn').onclick=()=>{if(confirm('Сбросить весь прогресс?')){localStorage.removeItem(KEY);state={items:{},answered:0};updateStats();newQuestion();}};
-if($('#mPractice')) $('#mPractice').onclick=()=>$('#tabPractice').click();
-if($('#mLearn')) $('#mLearn').onclick=()=>$('#tabLearn').click();
-if($('#mWeak')) $('#mWeak').onclick=()=>$('#tabWeak').click();
-if($('#mExam')) $('#mExam').onclick=()=>$('#tabExam').click();
+document.addEventListener('click', e=>{
+  const btn=e.target.closest('#mPractice,#mLearn,#mWeak,#mExam');
+  if(!btn) return;
+  e.preventDefault();
+  const map={
+    mPractice:'tabPractice',
+    mLearn:'tabLearn',
+    mWeak:'tabWeak',
+    mExam:'tabExam'
+  };
+  const target=document.getElementById(map[btn.id]);
+  if(target) target.click();
+});
 setActiveTab('tabPractice'); updateStats(); newQuestion();
 if(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches){{
   document.documentElement.classList.add('standalone');
