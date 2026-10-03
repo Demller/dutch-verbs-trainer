@@ -59,7 +59,7 @@ input,select{width:100%;font-size:17px;border:1px solid #ccd2da;border-radius:12
 
  .wrap{padding:9px 9px 70px} h1{font-size:19px} .stats{grid-template-columns:repeat(2,1fr)}
  .grid{grid-template-columns:1fr} .prompt{font-size:22px} button{flex:1;min-width:120px}
- .learn-table{font-size:12px} .learn-table th:nth-child(5),.learn-table td:nth-child(5){display:none}
+ .learn-table{font-size:12px} .learn-table th:nth-child(5),.learn-table td:nth-child(5){display:table-cell}
 }
 
 .meaning-direction{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
@@ -237,6 +237,22 @@ input,select{width:100%;font-size:17px;border:1px solid #ccd2da;border-radius:12
   }
   .mobile-nav .nav-icon{font-size:15px;margin-bottom:2px}
   #learnView,#meaningView,#errorView,#practiceView{padding-bottom:8px}
+}
+
+
+@media(max-width:560px){
+  .learn-table td:nth-child(5){
+    display:block !important;
+    margin-top:6px;
+    padding-top:7px;
+    border-top:1px dashed var(--line);
+    font-weight:600;
+  }
+  .learn-table td:nth-child(5)::before{
+    content:"Перевод: ";
+    font-weight:700;
+    color:var(--muted);
+  }
 }
 
 </style>
